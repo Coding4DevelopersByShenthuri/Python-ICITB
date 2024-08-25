@@ -1,0 +1,146 @@
+Debugged Code Activity 02(Question)
+
+
+def add_item(inventory, category, item_name, quantity, price):
+    if category in inventory:
+        if item_name in inventory[category]:
+            inventory[category][item_name]['quantity'] += quantity
+            inventory[category][item_name]['price'] = price
+        else:
+            inventory[category][item_name] = {'quantity': quantity, 'price': price}
+    else:
+        inventory[category] = {item_name: {'quantity': quantity, 'price': price}}
+
+def update_stock(inventory, category, item_name, quantity):
+    if category in inventory:
+        if item_name in inventory[category]:
+            inventory[category][item_name]['quantity'] += quantity
+        else:
+            print(f"Item {item_name} not found in category {category}.")
+    else:
+        print(f"Category {category} not found in inventory.")
+
+def process_order(inventory, order):
+    total_cost = 0
+    for category, items in order.items():
+        if category in inventory:
+            for item_name, quantity in items.items():
+                if item_name in inventory[category]:
+                    if inventory[category][item_name]['quantity'] >= quantity:
+                        item_cost = inventory[category][item_name]['price'] * quantity
+                        inventory[category][item_name]['quantity'] -= quantity
+                        total_cost += item_cost
+                        print(f"Ordered {quantity} of {item_name} from {category}. Cost: ${item_cost:.2f}")
+                    else:
+                        print(f"Not enough stock for {item_name}. Available: {inventory[category][item_name]['quantity']}")
+                else:
+                    print(f"Item {item_name} not found in category {category}.")
+        else:
+            print(f"Category {category} not found in inventory.")
+    print(f"Total order cost: ${total_cost:.2f}")
+
+def generate_report(inventory):
+    print("\nInventory Report")
+    for category, items in inventory.items():
+        print(f"Category: {category}")
+        for item_name, details in items.items():
+            print(f" - {item_name}: {details['quantity']} units available at ${details['price']:.2f} each")
+
+def main():
+    inventory = {
+        'Electronics': {
+            'Laptop': {'quantity': 10, 'price': 999.99},
+            'Smartphone': {'quantity': 25, 'price': 499.99},
+        },
+        'Groceries': {
+            'Apple': {'quantity': 100, 'price': 0.99},
+            'Milk': {'quantity': 50, 'price': 2.99},
+        }
+    }
+
+    add_item(inventory, 'Electronics', 'Tablet', 15, 299.99)
+
+    add_item(inventory, 'Furniture', 'Chair', 50, 49.99)
+
+    update_stock(inventory, 'Groceries', 'Apple', 50)
+
+    order = {
+        'Electronics': {'Laptop': 2, 'Tablet': 1},
+        'Groceries': {'Apple': 10, 'Milk': 5},
+        'Furniture': {'Chair': 2}
+    }
+    process_order(inventory, order)
+
+    generate_report(inventory)
+
+if __name__ == "__main__":
+    main()
+
+
+Answer:
+
+Functions:
+01. add_item(inventory, category, item_name, quantity, price):
+Which means Adds a new item to the inventory or updates an existing item's quantity and price.
+Steps:
+1. Check if the specified category exists in the inventory.
+   > If it does, proceed to the next step.
+   > If it doesn’t, create a new category with the item.
+2. Check if the item_name exists within the category.
+   >If it does, update the quantity and price of the item.
+   >If it doesn’t, add the item to the category with the specified quantity and price.
+3. If the category does not exist, create it and add the item with the given details.
+
+
+02. update_stock(inventory, category, item_name, quantity):
+Which means Updates the quantity of an existing item in the inventory.
+Steps:
+1. Check if the specified category exists in the inventory.
+   >If it does, proceed to the next step.
+   >If it doesn’t, print an error message.
+2. Check if the item_name exists within the category.
+   >If it does, increase the quantity of the item.
+   >If it doesn’t, print an error message.
+
+
+03. process_order(inventory, order):
+Which means Processes an order by checking stock availability, updating quantities, and calculating the total cost.
+Steps:
+1. Initialize total_cost to 0.
+2. For each category in the order:
+   >Check if the category exists in the inventory.
+   >For each item in the category:
+      >>Check if the item exists in the inventory.
+      >>Verify if there is enough stock to fulfill the order.
+      >>Calculate the cost if sufficient stock is available, update the inventory quantity, and add the cost to 'total_cost'.
+      >>Print appropriate messages for ordered items, insufficient stock, or non-existent items.
+3. Print the total cost of the order.
+
+
+04. generate_report(inventory):
+Which means Generates a report of the current inventory.
+Steps:
+1. Print a header for the report.
+2. For each category in the inventory:
+   >Print the category name.
+   >For each item in the category:
+      >>Print the item name, quantity available, and price.
+
+
+05. main():
+Which means Initializes the inventory, performs operations using the defined functions, and generates a report.
+Steps:
+1. Define an initial inventory with categories and items.
+2. Add new items to the inventory using add_item().
+3. Update stock for existing items using update_stock().
+Define an order and process it using process_order().
+4. Generate an inventory report using generate_report().
+
+Run:
+1. The main() function initializes the inventory, performs operations, processes an order, and generates a report.
+2. Running the script executes the main() function, demonstrating how items are managed and ordered in the inventory system.
+
+
+
+
+

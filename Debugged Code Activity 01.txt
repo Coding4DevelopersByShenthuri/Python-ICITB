@@ -1,0 +1,123 @@
+Debugged Code Activity 01(Question)
+
+
+def create_account(account_number, account_holder):
+    return {
+        "account_number": account_number,
+        "account_holder": account_holder,
+        "balance": 0
+    }
+
+def deposit(account, amount):
+    if amount > 0:
+        account['balance'] += amount
+        print(f"${amount} deposited to {account['account_number']}. New balance: ${account['balance']}")
+    else:
+        print("Deposit amount must be positive!")
+
+def withdraw(account, amount):
+    if amount > 0:
+        if account['balance'] >= amount:
+            account['balance'] -= amount
+            print(f"${amount} withdrawn from {account['account_number']}. New balance: ${account['balance']}")
+        else:
+            print("Insufficient funds!")
+    else:
+        print("Withdrawal amount must be positive!")
+
+def check_balance(account):
+    print(f"Account {account['account_number']} balance: ${account['balance']}")
+
+def transfer(from_account, to_account, amount):
+    if from_account['balance'] >= amount:
+        withdraw(from_account, amount)
+        deposit(to_account, amount)
+        print(f"Transferred ${amount} from account {from_account['account_number']} to account {to_account['account_number']}")
+    else:
+        print("Insufficient funds for transfer!")
+
+def main():
+    print("Welcome to the Simple Banking System!")
+    account1 = create_account("001", "Alice")
+    account2 = create_account("002", "Bob")
+    deposit(account1, 1000)
+    withdraw(account1, 200)
+    check_balance(account1)
+    transfer(account1, account2, 500)
+    check_balance(account1)
+    check_balance(account2)
+
+if __name__ == "__main__":
+    main()
+
+
+Answer:
+
+
+Functions:
+01. create_account(account_number, account_holder):
+Which means Initializes and returns a new bank account with a zero balance.
+Steps:
+1. Takes account_number and account_holder as input.
+2. Returns a dictionary with:
+     >"account_number": The provided account number.
+     >"account_holder": The provided account holder name.
+     >"balance": Initialized to 0.
+
+
+02. deposit(account, amount):
+Which means Adds a specified amount to the account's balance.
+Steps:
+1. Checks if amount is greater than 0.
+   >If true, increases the balance of the account by amount and prints a confirmation message with the updated balance.
+   >If false, prints an error message indicating that the deposit amount must be positive.
+
+
+03. withdraw(account, amount):
+Which means Withdraws a specified amount from the account’s balance.
+Steps:
+1. Checks if amount is greater than 0.
+   >If true, checks if the balance of the account is sufficient to cover the amount.
+       >>If the balance is sufficient, decreases the balance by amount and prints a confirmation message with the updated balance.
+       >>If the balance is insufficient, prints an error message indicating insufficient funds.
+   >If amount is not greater than 0, prints an error message indicating that the withdrawal amount must be positive.
+
+
+04. check_balance(account):
+Which means Prints the current balance of the specified account.
+Steps:
+1. Accesses the balance field of the account dictionary.
+2. Prints the account number and the current balance.
+
+
+05. transfer(from_account, to_account, amount):
+Which means Transfers a specified amount from one account to another.
+Steps:
+1. Checks if the 'from_account' has a sufficient balance to cover the 'amount'.
+     >If true, calls withdraw on the from_account to withdraw the amount.
+     >Calls deposit on the to_account to add the amount.
+     >Prints a confirmation message indicating the amount transferred and the involved accounts.
+     >If the balance is insufficient, prints an error message indicating insufficient funds for the transfer.
+
+
+'main' Function:
+Purpose: Demonstrates the use of the banking functions with a sample workflow.
+Steps:
+1. Prints a welcome message.
+2. Creates two accounts: 'account1' for Alice and 'account2' for Bob using 'create_account()'.
+3. Deposits $1000 into 'account1'.
+4. Withdraws $200 from 'account1'.
+5. Checks and prints the balance of 'account1'.
+6. Transfers $500 from 'account1' to 'account2'.
+7. Checks and prints the balance of both account1 and 'account2'.
+
+Run:
+When running the script, the 'main()' function is executed, demonstrating how accounts are created, funds are managed, and transfers are handled in the simple banking system. The final report includes account balances and transaction details.
+
+
+
+
+
+
+
+
